@@ -4,410 +4,580 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>MediCare Center · Sistema de Gestión</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">⚕️</span>
-      <span class="brand-name">Consultorio ADSO</span>
-    </div>
-    <nav class="top-actions" aria-label="Acciones">
-      <button id="toggleWf" class="btn">WF</button>
-      <a class="btn" href="#/ajustes" aria-label="Ajustes">Ajustes</a>
-      <span class="user">Dra. Demo</span>
-    </nav>
-  </header>
+  <!-- Login Screen -->
+  <div id="loginScreen" class="login-container">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo" aria-hidden="true">⚕️</span>
+        <span class="brand-name">Clinica ADSO</span>
+      </div>
 
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Secciones">
-      <ul class="menu">
-        <li><a href="#/dashboard" class="active" data-view="dashboard"><span class="menu-icon">🏠</span><span>Inicio</span></a></li>
-        <li><a href="#/agenda" data-view="agenda"><span class="menu-icon">📅</span><span>Agenda</span></a></li>
-        <li><a href="#/pacientes" data-view="pacientes"><span class="menu-icon">👥</span><span>Pacientes</span></a></li>
-        <li><a href="#/facturacion" data-view="facturacion"><span class="menu-icon">💰</span><span>Facturación</span></a></li>
-        <li><a href="#/ajustes" data-view="ajustes"><span class="menu-icon">⚙️</span><span>Ajustes</span></a></li>
+      <!-- Pills navs -->
+      <ul class="nav-pills" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="tab-login" href="#pills-login" role="tab"
+            aria-controls="pills-login" aria-selected="true">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="tab-register" href="#pills-register" role="tab"
+            aria-controls="pills-register" aria-selected="false">Registrarse</a>
+        </li>
       </ul>
-    </aside>
+      <!-- Pills navs -->
 
-    <main id="app" class="main" tabindex="-1" aria-live="polite" aria-busy="false">
-      <!-- Vista Dashboard -->
-      <div id="dashboard" class="view active">
-        <h2 class="section-title">Resumen del Consultorio</h2>
-        
-        <div class="kpis">
-          <div class="card">
-            <div class="kpi-title">Citas Hoy</div>
-            <div class="kpi-value">12</div>
-            <div class="kpi-change positive">+2 desde ayer</div>
+      <!-- Alert for login errors -->
+      <div id="loginAlert" class="alert alert-danger" role="alert">
+        Usuario o contraseña incorrectos. Intente nuevamente.
+      </div>
+
+      <!-- Pills content -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+          <form id="loginForm">
+            <div class="text-center mb-3">
+              <p>Iniciar sesión con:</p>
+              <div class="social-buttons">
+                <button type="button" class="btn-social">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="divider">
+              <span>o</span>
+            </div>
+
+            <!-- Username input -->
+            <div class="form-group">
+              <label class="form-label" for="loginName">Usuario</label>
+              <input type="text" id="loginName" class="form-control" required />
+            </div>
+
+            <!-- Password input -->
+            <div class="form-group">
+              <label class="form-label" for="loginPassword">Contraseña</label>
+              <input type="password" id="loginPassword" class="form-control" required />
+            </div>
+
+            <!-- 2 column grid layout -->
+            <div class="row mb-4">
+              <div class="col-md-6 d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check mb-3 mb-md-0">
+                  <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                  <label class="form-check-label" for="loginCheck"> Recordarme </label>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-flex justify-content-center">
+                <!-- Simple link -->
+                <a href="#!" class="link">¿Olvidó su contraseña?</a>
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar Sesión</button>
+
+            <!-- Register buttons -->
+            <div class="text-center">
+              <p>¿No es miembro? <a href="#!" class="link" id="goToRegister">Registrarse</a></p>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+          <form id="registerForm">
+            <div class="text-center mb-3">
+              <p>Registrarse con:</p>
+              <div class="social-buttons">
+                <button type="button" class="btn-social">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn-social">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="divider">
+              <span>o</span>
+            </div>
+
+            <!-- Name input -->
+            <div class="form-group">
+              <label class="form-label" for="registerName">Nombre</label>
+              <input type="text" id="registerName" class="form-control" required />
+            </div>
+
+            <!-- Username input -->
+            <div class="form-group">
+              <label class="form-label" for="registerUsername">Usuario</label>
+              <input type="text" id="registerUsername" class="form-control" required />
+            </div>
+
+            <!-- Email input -->
+            <div class="form-group">
+              <label class="form-label" for="registerEmail">Email</label>
+              <input type="email" id="registerEmail" class="form-control" required />
+            </div>
+
+            <!-- Password input -->
+            <div class="form-group">
+              <label class="form-label" for="registerPassword">Contraseña</label>
+              <input type="password" id="registerPassword" class="form-control" required />
+            </div>
+
+            <!-- Repeat Password input -->
+            <div class="form-group">
+              <label class="form-label" for="registerRepeatPassword">Repetir contraseña</label>
+              <input type="password" id="registerRepeatPassword" class="form-control" required />
+            </div>
+
+            <!-- Checkbox -->
+            <div class="form-check d-flex justify-content-center mb-4">
+              <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" required />
+              <label class="form-check-label" for="registerCheck">
+                He leído y acepto los términos
+              </label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-3">Registrarse</button>
+          </form>
+        </div>
+      </div>
+      <!-- Pills content -->
+    </div>
+  </div>
+
+  <!-- Main App (hidden initially) -->
+  <div id="appContainer" class="app-container">
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">⚕️</span>
+        <span class="brand-name">MediCare Center</span>
+      </div>
+      <nav class="top-actions" aria-label="Acciones">
+        <button id="toggleWf" class="btn">WF</button>
+        <a class="btn" href="#/ajustes" aria-label="Ajustes">Ajustes</a>
+        <span class="user" id="currentUser">Dra. Demo</span>
+        <button id="logoutBtn" class="btn">Cerrar Sesión</button>
+      </nav>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Secciones">
+        <ul class="menu">
+          <li><a href="#/dashboard" class="active" data-view="dashboard"><span class="menu-icon">🏠</span><span>Inicio</span></a></li>
+          <li><a href="#/agenda" data-view="agenda"><span class="menu-icon">📅</span><span>Agenda</span></a></li>
+          <li><a href="#/pacientes" data-view="pacientes"><span class="menu-icon">👥</span><span>Pacientes</span></a></li>
+          <li><a href="#/facturacion" data-view="facturacion"><span class="menu-icon">💰</span><span>Facturación</span></a></li>
+          <li><a href="#/ajustes" data-view="ajustes"><span class="menu-icon">⚙️</span><span>Ajustes</span></a></li>
+        </ul>
+      </aside>
+
+      <main id="app" class="main" tabindex="-1" aria-live="polite" aria-busy="false">
+        <!-- Vista Dashboard -->
+        <div id="dashboard" class="view active">
+          <h2 class="section-title">Resumen del Consultorio</h2>
+          
+          <div class="kpis">
+            <div class="card">
+              <div class="kpi-title">Citas Hoy</div>
+              <div class="kpi-value">12</div>
+              <div class="kpi-change positive">+2 desde ayer</div>
+            </div>
+            <div class="card">
+              <div class="kpi-title">Pacientes Activos</div>
+              <div class="kpi-value">342</div>
+              <div class="kpi-change positive">+5 este mes</div>
+            </div>
+            <div class="card">
+              <div class="kpi-title">Ingresos Mensuales</div>
+              <div class="kpi-value">$24,580</div>
+              <div class="kpi-change positive">+12% vs mes anterior</div>
+            </div>
+            <div class="card">
+              <div class="kpi-title">Citas Pendientes</div>
+              <div class="kpi-value">8</div>
+              <div class="kpi-change negative">-3 desde ayer</div>
+            </div>
           </div>
-          <div class="card">
-            <div class="kpi-title">Pacientes Activos</div>
-            <div class="kpi-value">342</div>
-            <div class="kpi-change positive">+5 este mes</div>
-          </div>
-          <div class="card">
-            <div class="kpi-title">Ingresos Mensuales</div>
-            <div class="kpi-value">$24,580</div>
-            <div class="kpi-change positive">+12% vs mes anterior</div>
-          </div>
-          <div class="card">
-            <div class="kpi-title">Citas Pendientes</div>
-            <div class="kpi-value">8</div>
-            <div class="kpi-change negative">-3 desde ayer</div>
+          
+          <div class="dashboard-grid">
+            <div class="card">
+              <h3>Próximas Citas</h3>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Hora</th>
+                    <th>Paciente</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>09:00 AM</td>
+                    <td>María González</td>
+                    <td>Control rutina</td>
+                    <td><span class="badge badge-success">Confirmada</span></td>
+                  </tr>
+                  <tr>
+                    <td>10:30 AM</td>
+                    <td>Carlos Rodríguez</td>
+                    <td>Consulta general</td>
+                    <td><span class="badge badge-warning">Pendiente</span></td>
+                  </tr>
+                  <tr>
+                    <td>11:45 AM</td>
+                    <td>Ana Martínez</td>
+                    <td>Seguimiento tratamiento</td>
+                    <td><span class="badge badge-success">Confirmada</span></td>
+                  </tr>
+                  <tr>
+                    <td>02:15 PM</td>
+                    <td>Luis Pérez</td>
+                    <td>Revisión de resultados</td>
+                    <td><span class="badge badge-danger">Cancelada</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="card">
+              <h3>Recordatorios</h3>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+                  <div style="font-weight: 500;">Pedir insumos médicos</div>
+                  <div style="font-size: 0.875rem; color: var(--muted);">Vence: 15/05/2023</div>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+                  <div style="font-weight: 500;">Renovar certificación</div>
+                  <div style="font-size: 0.875rem; color: var(--muted);">Vence: 30/06/2023</div>
+                </li>
+                <li style="padding: 0.75rem 0;">
+                  <div style="font-weight: 500;">Reunión con proveedor</div>
+                  <div style="font-size: 0.875rem; color: var(--muted);">Mañana 10:00 AM</div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         
-        <div class="dashboard-grid">
+        <!-- Vista Agenda -->
+        <div id="agenda" class="view">
+          <div class="toolbar">
+            <h2 class="section-title">Agenda de Citas</h2>
+            <div class="actions">
+              <button class="btn btn-primary">Nueva Cita</button>
+              <button class="btn">Imprimir Agenda</button>
+            </div>
+          </div>
+          
           <div class="card">
-            <h3>Próximas Citas</h3>
+            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+              <input type="date" class="input" style="max-width: 200px;">
+              <select class="input" style="max-width: 200px;">
+                <option>Todos los médicos</option>
+                <option>Dra. Demo</option>
+                <option>Dr. Martínez</option>
+              </select>
+              <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 250px;">
+            </div>
+            
             <table class="table">
               <thead>
                 <tr>
-                  <th>Hora</th>
+                  <th>Fecha/Hora</th>
                   <th>Paciente</th>
+                  <th>Médico</th>
                   <th>Motivo</th>
                   <th>Estado</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>09:00 AM</td>
+                  <td>15/05/2023 09:00</td>
                   <td>María González</td>
+                  <td>Dra. Demo</td>
                   <td>Control rutina</td>
                   <td><span class="badge badge-success">Confirmada</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                  </td>
                 </tr>
                 <tr>
-                  <td>10:30 AM</td>
+                  <td>15/05/2023 10:30</td>
                   <td>Carlos Rodríguez</td>
+                  <td>Dra. Demo</td>
                   <td>Consulta general</td>
                   <td><span class="badge badge-warning">Pendiente</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                  </td>
                 </tr>
                 <tr>
-                  <td>11:45 AM</td>
+                  <td>15/05/2023 11:45</td>
                   <td>Ana Martínez</td>
+                  <td>Dra. Demo</td>
                   <td>Seguimiento tratamiento</td>
                   <td><span class="badge badge-success">Confirmada</span></td>
-                </tr>
-                <tr>
-                  <td>02:15 PM</td>
-                  <td>Luis Pérez</td>
-                  <td>Revisión de resultados</td>
-                  <td><span class="badge badge-danger">Cancelada</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          
-          <div class="card">
-            <h3>Recordatorios</h3>
-            <ul style="list-style: none; padding: 0;">
-              <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
-                <div style="font-weight: 500;">Pedir insumos médicos</div>
-                <div style="font-size: 0.875rem; color: var(--muted);">Vence: 15/05/2023</div>
-              </li>
-              <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
-                <div style="font-weight: 500;">Renovar certificación</div>
-                <div style="font-size: 0.875rem; color: var(--muted);">Vence: 30/06/2023</div>
-              </li>
-              <li style="padding: 0.75rem 0;">
-                <div style="font-weight: 500;">Reunión con proveedor</div>
-                <div style="font-size: 0.875rem; color: var(--muted);">Mañana 10:00 AM</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Vista Agenda -->
-      <div id="agenda" class="view">
-        <div class="toolbar">
-          <h2 class="section-title">Agenda de Citas</h2>
-          <div class="actions">
-            <button class="btn btn-primary">Nueva Cita</button>
-            <button class="btn">Imprimir Agenda</button>
-          </div>
         </div>
         
-        <div class="card">
-          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-            <input type="date" class="input" style="max-width: 200px;">
-            <select class="input" style="max-width: 200px;">
-              <option>Todos los médicos</option>
-              <option>Dra. Demo</option>
-              <option>Dr. Martínez</option>
-            </select>
-            <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 250px;">
-          </div>
-          
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Fecha/Hora</th>
-                <th>Paciente</th>
-                <th>Médico</th>
-                <th>Motivo</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>15/05/2023 09:00</td>
-                <td>María González</td>
-                <td>Dra. Demo</td>
-                <td>Control rutina</td>
-                <td><span class="badge badge-success">Confirmada</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>15/05/2023 10:30</td>
-                <td>Carlos Rodríguez</td>
-                <td>Dra. Demo</td>
-                <td>Consulta general</td>
-                <td><span class="badge badge-warning">Pendiente</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>15/05/2023 11:45</td>
-                <td>Ana Martínez</td>
-                <td>Dra. Demo</td>
-                <td>Seguimiento tratamiento</td>
-                <td><span class="badge badge-success">Confirmada</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <!-- Vista Pacientes -->
-      <div id="pacientes" class="view">
-        <div class="toolbar">
-          <h2 class="section-title">Gestión de Pacientes</h2>
-          <div class="actions">
-            <button class="btn btn-primary">Nuevo Paciente</button>
-            <button class="btn">Exportar</button>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-            <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 300px;">
-            <select class="input" style="max-width: 200px;">
-              <option>Todos los pacientes</option>
-              <option>Activos</option>
-              <option>Inactivos</option>
-            </select>
-          </div>
-          
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Email</th>
-                <th>Última Visita</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>P-001</td>
-                <td>María González</td>
-                <td>+1 234 567 890</td>
-                <td>maria.gonzalez@email.com</td>
-                <td>10/05/2023</td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>P-002</td>
-                <td>Carlos Rodríguez</td>
-                <td>+1 234 567 891</td>
-                <td>carlos.rodriguez@email.com</td>
-                <td>08/05/2023</td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>P-003</td>
-                <td>Ana Martínez</td>
-                <td>+1 234 567 892</td>
-                <td>ana.martinez@email.com</td>
-                <td>05/05/2023</td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <!-- Vista Facturación -->
-      <div id="facturacion" class="view">
-        <div class="toolbar">
-          <h2 class="section-title">Facturación</h2>
-          <div class="actions">
-            <button class="btn btn-primary">Nueva Factura</button>
-            <button class="btn">Reportes</button>
-          </div>
-        </div>
-        
-        <div class="kpis">
-          <div class="card">
-            <div class="kpi-title">Facturación del Mes</div>
-            <div class="kpi-value">$24,580</div>
-            <div class="kpi-change positive">+12% vs mes anterior</div>
-          </div>
-          <div class="card">
-            <div class="kpi-title">Facturas Pendientes</div>
-            <div class="kpi-value">$3,250</div>
-            <div class="kpi-change negative">-5% desde ayer</div>
-          </div>
-          <div class="card">
-            <div class="kpi-title">Promedio por Factura</div>
-            <div class="kpi-value">$185</div>
-            <div class="kpi-change positive">+8% vs mes anterior</div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <h3>Facturas Recientes</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>N° Factura</th>
-                <th>Fecha</th>
-                <th>Paciente</th>
-                <th>Monto</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>F-2023-001</td>
-                <td>14/05/2023</td>
-                <td>María González</td>
-                <td>$250</td>
-                <td><span class="badge badge-success">Pagada</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
-                </td>
-              </tr>
-              <tr>
-                <td>F-2023-002</td>
-                <td>13/05/2023</td>
-                <td>Carlos Rodríguez</td>
-                <td>$180</td>
-                <td><span class="badge badge-warning">Pendiente</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
-                </td>
-              </tr>
-              <tr>
-                <td>F-2023-003</td>
-                <td>12/05/2023</td>
-                <td>Ana Martínez</td>
-                <td>$320</td>
-                <td><span class="badge badge-success">Pagada</span></td>
-                <td>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
-                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <!-- Vista Ajustes -->
-      <div id="ajustes" class="view">
-        <h2 class="section-title">Configuración del Sistema</h2>
-        
-        <div class="row">
-          <div class="col">
-            <div class="card">
-              <h3>Información del Consultorio</h3>
-              <div style="margin-top: 1rem;">
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Nombre del Consultorio</label>
-                  <input type="text" class="input" value="MediCare Center">
-                </div>
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Dirección</label>
-                  <input type="text" class="input" value="Av. Principal 123, Ciudad">
-                </div>
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Teléfono</label>
-                  <input type="text" class="input" value="+1 234 567 890">
-                </div>
-                <button class="btn btn-primary">Guardar Cambios</button>
-              </div>
+        <!-- Vista Pacientes -->
+        <div id="pacientes" class="view">
+          <div class="toolbar">
+            <h2 class="section-title">Gestión de Pacientes</h2>
+            <div class="actions">
+              <button class="btn btn-primary">Nuevo Paciente</button>
+              <button class="btn">Exportar</button>
             </div>
           </div>
           
-          <div class="col">
+          <div class="card">
+            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+              <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 300px;">
+              <select class="input" style="max-width: 200px;">
+                <option>Todos los pacientes</option>
+                <option>Activos</option>
+                <option>Inactivos</option>
+              </select>
+            </div>
+            
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                  <th>Última Visita</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>P-001</td>
+                  <td>María González</td>
+                  <td>+1 234 567 890</td>
+                  <td>maria.gonzalez@email.com</td>
+                  <td>10/05/2023</td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>P-002</td>
+                  <td>Carlos Rodríguez</td>
+                  <td>+1 234 567 891</td>
+                  <td>carlos.rodriguez@email.com</td>
+                  <td>08/05/2023</td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>P-003</td>
+                  <td>Ana Martínez</td>
+                  <td>+1 234 567 892</td>
+                  <td>ana.martinez@email.com</td>
+                  <td>05/05/2023</td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Vista Facturación -->
+        <div id="facturacion" class="view">
+          <div class="toolbar">
+            <h2 class="section-title">Facturación</h2>
+            <div class="actions">
+              <button class="btn btn-primary">Nueva Factura</button>
+              <button class="btn">Reportes</button>
+            </div>
+          </div>
+          
+          <div class="kpis">
             <div class="card">
-              <h3>Preferencias</h3>
-              <div style="margin-top: 1rem;">
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: flex; align-items: center; gap: 0.5rem;">
-                    <input type="checkbox" checked>
-                    <span>Recordatorios automáticos por email</span>
-                  </label>
+              <div class="kpi-title">Facturación del Mes</div>
+              <div class="kpi-value">$24,580</div>
+              <div class="kpi-change positive">+12% vs mes anterior</div>
+            </div>
+            <div class="card">
+              <div class="kpi-title">Facturas Pendientes</div>
+              <div class="kpi-value">$3,250</div>
+              <div class="kpi-change negative">-5% desde ayer</div>
+            </div>
+            <div class="card">
+              <div class="kpi-title">Promedio por Factura</div>
+              <div class="kpi-value">$185</div>
+              <div class="kpi-change positive">+8% vs mes anterior</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>Facturas Recientes</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>N° Factura</th>
+                  <th>Fecha</th>
+                  <th>Paciente</th>
+                  <th>Monto</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>F-2023-001</td>
+                  <td>14/05/2023</td>
+                  <td>María González</td>
+                  <td>$250</td>
+                  <td><span class="badge badge-success">Pagada</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>F-2023-002</td>
+                  <td>13/05/2023</td>
+                  <td>Carlos Rodríguez</td>
+                  <td>$180</td>
+                  <td><span class="badge badge-warning">Pendiente</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>F-2023-003</td>
+                  <td>12/05/2023</td>
+                  <td>Ana Martínez</td>
+                  <td>$320</td>
+                  <td><span class="badge badge-success">Pagada</span></td>
+                  <td>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                    <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Vista Ajustes -->
+        <div id="ajustes" class="view">
+          <h2 class="section-title">Configuración del Sistema</h2>
+          
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <h3>Información del Consultorio</h3>
+                <div style="margin-top: 1rem;">
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Nombre del Consultorio</label>
+                    <input type="text" class="input" value="MediCare Center">
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Dirección</label>
+                    <input type="text" class="input" value="Av. Principal 123, Ciudad">
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Teléfono</label>
+                    <input type="text" class="input" value="+1 234 567 890">
+                  </div>
+                  <button class="btn btn-primary">Guardar Cambios</button>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: flex; align-items: center; gap: 0.5rem;">
-                    <input type="checkbox" checked>
-                    <span>Notificaciones de citas</span>
-                  </label>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: flex; align-items: center; gap: 0.5rem;">
-                    <input type="checkbox">
-                    <span>Modo oscuro</span>
-                  </label>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Idioma</label>
-                  <select class="input">
-                    <option>Español</option>
-                    <option>English</option>
-                  </select>
+              </div>
+            </div>
+            
+            <div class="col">
+              <div class="card">
+                <h3>Preferencias</h3>
+                <div style="margin-top: 1rem;">
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                      <input type="checkbox" checked>
+                      <span>Recordatorios automáticos por email</span>
+                    </label>
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                      <input type="checkbox" checked>
+                      <span>Notificaciones de citas</span>
+                    </label>
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                      <input type="checkbox">
+                      <span>Modo oscuro</span>
+                    </label>
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Idioma</label>
+                    <select class="input">
+                      <option>Español</option>
+                      <option>English</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-  <footer class="app-footer">
-    <small>MediCare Center · Sistema de Gestión Médica · Proyecto educativo</small>
-  </footer>
+    <footer class="app-footer">
+      <small>MediCare Center · Sistema de Gestión Médica · Proyecto educativo</small>
+    </footer>
+  </div>
 
 </body>
 <script src="script.js"></script>
 </html>
-
