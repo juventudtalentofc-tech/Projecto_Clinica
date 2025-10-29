@@ -1,8 +1,8 @@
  // Base de datos de usuarios
     const users = {
-      'santiago': { password: '1234', name: 'Dr. aleck' },
+      'santiago': { password: '1234', name: 'Dr. santiago' },
       'jose': { password: '1234', name: 'Dr. jose' },
-      'aleck': { password: '1234', name: 'Dr. santiago' },
+      'aleck': { password: '1234', name: 'Dr. aleck' },
       'nestor': { password: '1234', name: 'Dr. nestor' }
     };
 
@@ -162,3 +162,4 @@
       const initialView = window.location.hash.replace('#/', '') || 'dashboard';
       showView(initialView);
     });
+
