@@ -1,427 +1,412 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sistema en Mantenimiento</title>
-    <style>
-        /* Reset y configuración base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        html, body {
-            height: 100%;
-            overflow-x: hidden;
-            touch-action: pan-y;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        /* Contenedor principal */
-        .maintenance-container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Efecto de partículas */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-            50% {
-                transform: translateY(-20px) translateX(20px);
-            }
-            100% {
-                transform: translateY(0) translateX(0);
-            }
-        }
-        
-        /* Icono de mantenimiento */
-        .maintenance-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        /* Títulos y textos */
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
-        
-        /* Barra de progreso */
-        .progress-container {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            margin: 30px 0;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background: linear-gradient(to right, #00b4db, #0083b0);
-            width: 65%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        
-        /* Información de contacto */
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-        
-        /* Indicador de deslizar para actualizar */
-        .pull-to-refresh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.5);
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .pull-to-refresh.active {
-            transform: translateY(0);
-        }
-        
-        .refresh-icon {
-            font-size: 24px;
-            margin-right: 10px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        /* Contador regresivo */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .countdown-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            min-width: 80px;
-        }
-        
-        .countdown-value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .countdown-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* Responsividad */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            p {
-                font-size: 1rem;
-            }
-            
-            .maintenance-container {
-                padding: 30px 20px;
-            }
-            
-            .countdown {
-                gap: 10px;
-            }
-            
-            .countdown-item {
-                min-width: 60px;
-                padding: 10px;
-            }
-            
-            .countdown-value {
-                font-size: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.7rem;
-            }
-            
-            .maintenance-icon {
-                font-size: 60px;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .countdown {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MediCare Center · Sistema de Gestión</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="pull-to-refresh" id="pullToRefresh">
-        <div class="refresh-icon">↻</div>
-        <span>Suelta para actualizar</span>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">⚕️</span>
+      <span class="brand-name">MediCare Center</span>
     </div>
-    
-    <div class="maintenance-container">
-        <div class="particles" id="particles"></div>
-        
-        <div class="maintenance-icon">🔧</div>
-        <h1>Sitio en Mantenimiento</h1>
-        <p>Estamos realizando mejoras para ofrecerte una mejor experiencia. Por favor, vuelve pronto.</p>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        
-        <div class="countdown" id="countdown">
-            <div class="countdown-item">
-                <div class="countdown-value" id="days">00</div>
-                <div class="countdown-label">Días</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-value" id="hours">00</div>
-                <div class="countdown-label">Horas</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-value" id="minutes">00</div>
-                <div class="countdown-label">Minutos</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-value" id="seconds">00</div>
-                <div class="countdown-label">Segundos</div>
-            </div>
-        </div>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <span>📧</span>
-                <span>soporte@empresa.com</span>
-            </div>
-            <div class="contact-item">
-                <span>📞</span>
-                <span>------------</span>
-            </div>
-        </div>
-    </div>
+    <nav class="top-actions" aria-label="Acciones">
+      <button id="toggleWf" class="btn">WF</button>
+      <a class="btn" href="#/ajustes" aria-label="Ajustes">Ajustes</a>
+      <span class="user">Dra. Demo</span>
+    </nav>
+  </header>
 
-    <script>
-        // Prevenir zoom y despliegue de página
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
-        });
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Secciones">
+      <ul class="menu">
+        <li><a href="#/dashboard" class="active" data-view="dashboard"><span class="menu-icon">🏠</span><span>Inicio</span></a></li>
+        <li><a href="#/agenda" data-view="agenda"><span class="menu-icon">📅</span><span>Agenda</span></a></li>
+        <li><a href="#/pacientes" data-view="pacientes"><span class="menu-icon">👥</span><span>Pacientes</span></a></li>
+        <li><a href="#/facturacion" data-view="facturacion"><span class="menu-icon">💰</span><span>Facturación</span></a></li>
+        <li><a href="#/ajustes" data-view="ajustes"><span class="menu-icon">⚙️</span><span>Ajustes</span></a></li>
+      </ul>
+    </aside>
+
+    <main id="app" class="main" tabindex="-1" aria-live="polite" aria-busy="false">
+      <!-- Vista Dashboard -->
+      <div id="dashboard" class="view active">
+        <h2 class="section-title">Resumen del Consultorio</h2>
         
-        document.addEventListener('touchmove', function(e) {
-            if(e.scale !== 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
+        <div class="kpis">
+          <div class="card">
+            <div class="kpi-title">Citas Hoy</div>
+            <div class="kpi-value">12</div>
+            <div class="kpi-change positive">+2 desde ayer</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">Pacientes Activos</div>
+            <div class="kpi-value">342</div>
+            <div class="kpi-change positive">+5 este mes</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">Ingresos Mensuales</div>
+            <div class="kpi-value">$24,580</div>
+            <div class="kpi-change positive">+12% vs mes anterior</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">Citas Pendientes</div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-change negative">-3 desde ayer</div>
+          </div>
+        </div>
         
-        // Crear partículas decorativas
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Tamaño aleatorio
-                const size = Math.random() * 10 + 5;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Posición aleatoria
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Animación con delay aleatorio
-                particle.style.animationDelay = `${Math.random() * 15}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+        <div class="dashboard-grid">
+          <div class="card">
+            <h3>Próximas Citas</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Paciente</th>
+                  <th>Motivo</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>09:00 AM</td>
+                  <td>María González</td>
+                  <td>Control rutina</td>
+                  <td><span class="badge badge-success">Confirmada</span></td>
+                </tr>
+                <tr>
+                  <td>10:30 AM</td>
+                  <td>Carlos Rodríguez</td>
+                  <td>Consulta general</td>
+                  <td><span class="badge badge-warning">Pendiente</span></td>
+                </tr>
+                <tr>
+                  <td>11:45 AM</td>
+                  <td>Ana Martínez</td>
+                  <td>Seguimiento tratamiento</td>
+                  <td><span class="badge badge-success">Confirmada</span></td>
+                </tr>
+                <tr>
+                  <td>02:15 PM</td>
+                  <td>Luis Pérez</td>
+                  <td>Revisión de resultados</td>
+                  <td><span class="badge badge-danger">Cancelada</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="card">
+            <h3>Recordatorios</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+                <div style="font-weight: 500;">Pedir insumos médicos</div>
+                <div style="font-size: 0.875rem; color: var(--muted);">Vence: 15/05/2023</div>
+              </li>
+              <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+                <div style="font-weight: 500;">Renovar certificación</div>
+                <div style="font-size: 0.875rem; color: var(--muted);">Vence: 30/06/2023</div>
+              </li>
+              <li style="padding: 0.75rem 0;">
+                <div style="font-weight: 500;">Reunión con proveedor</div>
+                <div style="font-size: 0.875rem; color: var(--muted);">Mañana 10:00 AM</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Vista Agenda -->
+      <div id="agenda" class="view">
+        <div class="toolbar">
+          <h2 class="section-title">Agenda de Citas</h2>
+          <div class="actions">
+            <button class="btn btn-primary">Nueva Cita</button>
+            <button class="btn">Imprimir Agenda</button>
+          </div>
+        </div>
         
-        // Funcionalidad de deslizar para actualizar
-        let startY = 0;
-        let currentY = 0;
-        let pullToRefresh = document.getElementById('pullToRefresh');
+        <div class="card">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+            <input type="date" class="input" style="max-width: 200px;">
+            <select class="input" style="max-width: 200px;">
+              <option>Todos los médicos</option>
+              <option>Dra. Demo</option>
+              <option>Dr. Martínez</option>
+            </select>
+            <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 250px;">
+          </div>
+          
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fecha/Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>15/05/2023 09:00</td>
+                <td>María González</td>
+                <td>Dra. Demo</td>
+                <td>Control rutina</td>
+                <td><span class="badge badge-success">Confirmada</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>15/05/2023 10:30</td>
+                <td>Carlos Rodríguez</td>
+                <td>Dra. Demo</td>
+                <td>Consulta general</td>
+                <td><span class="badge badge-warning">Pendiente</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>15/05/2023 11:45</td>
+                <td>Ana Martínez</td>
+                <td>Dra. Demo</td>
+                <td>Seguimiento tratamiento</td>
+                <td><span class="badge badge-success">Confirmada</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Cancelar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Vista Pacientes -->
+      <div id="pacientes" class="view">
+        <div class="toolbar">
+          <h2 class="section-title">Gestión de Pacientes</h2>
+          <div class="actions">
+            <button class="btn btn-primary">Nuevo Paciente</button>
+            <button class="btn">Exportar</button>
+          </div>
+        </div>
         
-        document.addEventListener('touchstart', function(e) {
-            startY = e.touches[0].clientY;
-        });
+        <div class="card">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+            <input type="text" class="input" placeholder="Buscar paciente..." style="max-width: 300px;">
+            <select class="input" style="max-width: 200px;">
+              <option>Todos los pacientes</option>
+              <option>Activos</option>
+              <option>Inactivos</option>
+            </select>
+          </div>
+          
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Última Visita</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>P-001</td>
+                <td>María González</td>
+                <td>+1 234 567 890</td>
+                <td>maria.gonzalez@email.com</td>
+                <td>10/05/2023</td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>P-002</td>
+                <td>Carlos Rodríguez</td>
+                <td>+1 234 567 891</td>
+                <td>carlos.rodriguez@email.com</td>
+                <td>08/05/2023</td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>P-003</td>
+                <td>Ana Martínez</td>
+                <td>+1 234 567 892</td>
+                <td>ana.martinez@email.com</td>
+                <td>05/05/2023</td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Vista Facturación -->
+      <div id="facturacion" class="view">
+        <div class="toolbar">
+          <h2 class="section-title">Facturación</h2>
+          <div class="actions">
+            <button class="btn btn-primary">Nueva Factura</button>
+            <button class="btn">Reportes</button>
+          </div>
+        </div>
         
-        document.addEventListener('touchmove', function(e) {
-            if (window.scrollY === 0) {
-                currentY = e.touches[0].clientY;
-                const diff = currentY - startY;
-                
-                if (diff > 0) {
-                    e.preventDefault();
-                    pullToRefresh.classList.add('active');
-                }
-            }
-        });
+        <div class="kpis">
+          <div class="card">
+            <div class="kpi-title">Facturación del Mes</div>
+            <div class="kpi-value">$24,580</div>
+            <div class="kpi-change positive">+12% vs mes anterior</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">Facturas Pendientes</div>
+            <div class="kpi-value">$3,250</div>
+            <div class="kpi-change negative">-5% desde ayer</div>
+          </div>
+          <div class="card">
+            <div class="kpi-title">Promedio por Factura</div>
+            <div class="kpi-value">$185</div>
+            <div class="kpi-change positive">+8% vs mes anterior</div>
+          </div>
+        </div>
         
-        document.addEventListener('touchend', function() {
-            if (pullToRefresh.classList.contains('active')) {
-                // Simular actualización
-                setTimeout(function() {
-                    pullToRefresh.classList.remove('active');
-                    // Aquí iría la lógica real de actualización
-                    location.reload();
-                }, 1000);
-            }
-        });
+        <div class="card">
+          <h3>Facturas Recientes</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>N° Factura</th>
+                <th>Fecha</th>
+                <th>Paciente</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>F-2023-001</td>
+                <td>14/05/2023</td>
+                <td>María González</td>
+                <td>$250</td>
+                <td><span class="badge badge-success">Pagada</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                </td>
+              </tr>
+              <tr>
+                <td>F-2023-002</td>
+                <td>13/05/2023</td>
+                <td>Carlos Rodríguez</td>
+                <td>$180</td>
+                <td><span class="badge badge-warning">Pendiente</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                </td>
+              </tr>
+              <tr>
+                <td>F-2023-003</td>
+                <td>12/05/2023</td>
+                <td>Ana Martínez</td>
+                <td>$320</td>
+                <td><span class="badge badge-success">Pagada</span></td>
+                <td>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Ver</button>
+                  <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Imprimir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Vista Ajustes -->
+      <div id="ajustes" class="view">
+        <h2 class="section-title">Configuración del Sistema</h2>
         
-        // Contador regresivo
-        function updateCountdown() {
-            // Fecha objetivo (puedes cambiarla)
-            const targetDate = new Date('2023-12-31T23:59:59').getTime();
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<p>¡Mantenimiento completado!</p>';
-                return;
-            }
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        // Barra de progreso animada
-        function animateProgressBar() {
-            const progressBar = document.getElementById('progressBar');
-            let width = 0;
-            
-            const interval = setInterval(function() {
-                if (width >= 65) {
-                    clearInterval(interval);
-                } else {
-                    width++;
-                    progressBar.style.width = `${width}%`;
-                }
-            }, 50);
-        }
-        
-        // Inicializar todo cuando se carga la página
-        window.onload = function() {
-            createParticles();
-            updateCountdown();
-            animateProgressBar();
-            
-            // Actualizar contador cada segundo
-            setInterval(updateCountdown, 1000);
-        };
-    </script>
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <h3>Información del Consultorio</h3>
+              <div style="margin-top: 1rem;">
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Nombre del Consultorio</label>
+                  <input type="text" class="input" value="MediCare Center">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Dirección</label>
+                  <input type="text" class="input" value="Av. Principal 123, Ciudad">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Teléfono</label>
+                  <input type="text" class="input" value="+1 234 567 890">
+                </div>
+                <button class="btn btn-primary">Guardar Cambios</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card">
+              <h3>Preferencias</h3>
+              <div style="margin-top: 1rem;">
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" checked>
+                    <span>Recordatorios automáticos por email</span>
+                  </label>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" checked>
+                    <span>Notificaciones de citas</span>
+                  </label>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox">
+                    <span>Modo oscuro</span>
+                  </label>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                  <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Idioma</label>
+                  <select class="input">
+                    <option>Español</option>
+                    <option>English</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <small>MediCare Center · Sistema de Gestión Médica · Proyecto educativo</small>
+  </footer>
+
 </body>
+<script src="script.js"></script>
 </html>
-
